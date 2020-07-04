@@ -1,0 +1,11 @@
+Bag of Nonsense is a collection of items I did for myself, but I decided to release it. Contains a whopping 8 items.
+
+
+Changelog//
+
+v0.4.1
+-Fixed a type in Spooky Quiver
+v0.4 
+-Added Spooky Quiver
+-Doom arrow now spawns 4 arrows instead of 3
+-Extra doom arrows now deal 66% weapon damage instead of 80%
