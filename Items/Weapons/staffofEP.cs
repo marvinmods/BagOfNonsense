@@ -1,4 +1,5 @@
 ﻿using BagOfNonsense.Buffs;
+using BagOfNonsense.Projectiles;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -21,7 +22,7 @@ namespace BagOfNonsense.Items.Weapons
             item.CloneDefaults(ItemID.WandofSparking);
             item.width = 34;
             item.height = 34;
-            item.damage = 57;
+            item.damage = 75;
             item.useTime = 24;
             item.useAnimation = 24;
             item.knockBack = 2f;
@@ -44,7 +45,7 @@ namespace BagOfNonsense.Items.Weapons
             for (int j = 0; j < 12; j++)
             {
                 offsetAngle = startAngle + deltaAngle * j;
-                Projectile.NewProjectile(position.X, position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), mod.ProjectileType("staffproj"), damage, knockBack, player.whoAmI);
+                Projectile.NewProjectile(position.X, position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), ModContent.ProjectileType<staffproj>(), damage, knockBack, player.whoAmI);
             }
 
             return false;

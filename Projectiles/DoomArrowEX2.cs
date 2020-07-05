@@ -14,7 +14,7 @@ namespace BagOfNonsense.Projectiles
         {
             projectile.arrow = true;
             projectile.width = 14;
-            projectile.height = 32;
+            projectile.height = 14;
             projectile.friendly = true;
             projectile.penetrate = 1;
             projectile.tileCollide = false;

@@ -19,7 +19,7 @@ namespace BagOfNonsense.Items.Weapons
             item.shoot = mod.ProjectileType("DoomArrow");
             item.damage = 16;
             item.width = 14;
-            item.height = 32;
+            item.height = 14;
             item.maxStack = 1;
             item.consumable = false;
             item.ammo = AmmoID.Arrow;
