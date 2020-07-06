@@ -63,7 +63,7 @@ namespace BagOfNonsense.Projectiles
             for (int i = 0; i < 4; i++)
             {
                 type = Main.rand.Next(new int[] { type, mod.ProjectileType("DoomArrowEX1"), mod.ProjectileType("DoomArrowEX2"), mod.ProjectileType("DoomArrowEX3"), mod.ProjectileType("DoomArrowEX4") });
-                float rand = Main.rand.NextFloat(2f, 2.8f);
+                float rand = Main.rand.NextFloat(1f, 2.8f);
                 float randspeed = Main.rand.NextFloat(3f, 6f);
                 Vector2 playerpos = Vector2.Add(Main.player[owner.whoAmI].position, Vector2.Multiply(Main.player[owner.whoAmI].Size * 1.5f, Utils.RandomVector2(Main.rand, -1f, 1f)));
                 Projectile.NewProjectile(playerpos.X + rand, playerpos.Y + rand, vector2.X * randspeed, vector2.Y * randspeed, type, nerfdamage, 0.0f, owner.whoAmI, target.whoAmI, 0.0f);

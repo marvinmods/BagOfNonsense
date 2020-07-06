@@ -70,7 +70,7 @@ namespace BagOfNonsense
         {
             if (npc.type == NPCID.SkeletonSniper || npc.type == NPCID.SkeletonCommando || npc.type == NPCID.TacticalSkeleton)
             {
-                if (Main.rand.Next(100) < 2)
+                if (Main.rand.Next(100) < 8)
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<GhostlyArrow>());
                 }
