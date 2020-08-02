@@ -15,7 +15,7 @@ namespace BagOfNonsense.Projectiles
         public override void SetDefaults()
         {
             projectile.width = 13;
-            projectile.height = 17;
+            projectile.height = 13;
             projectile.aiStyle = 0;
             projectile.friendly = true;
             projectile.penetrate = 1;

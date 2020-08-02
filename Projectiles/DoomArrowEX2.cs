@@ -34,10 +34,7 @@ namespace BagOfNonsense.Projectiles
                 owner.AddBuff(BuffID.RapidHealing, 150);
             }
 
-            if (heal < 1f)
-            {
-                heal = 1;
-            }
+            if (heal < 1f) heal = 1;
 
             if (chance < 0.02f)
             {
@@ -104,10 +101,7 @@ namespace BagOfNonsense.Projectiles
                     }
                 }
 
-                if (flag3)
-                {
-                    projectile.ai[1] = (float)(num137 + 1);
-                }
+                if (flag3) projectile.ai[1] = (float)(num137 + 1);
 
                 flag3 = false;
             }
@@ -132,10 +126,7 @@ namespace BagOfNonsense.Projectiles
                 }
             }
 
-            if (!projectile.friendly)
-            {
-                flag3 = false;
-            }
+            if (!projectile.friendly) flag3 = false;
 
             if (flag3)
             {
@@ -162,9 +153,10 @@ namespace BagOfNonsense.Projectiles
         public override void Kill(int timeLeft)
         {
             int num1 = Main.rand.Next(5, 10);
+            Color color = new Color(116, 70, 255, 255);
             for (int index1 = 0; index1 < num1; ++index1)
             {
-                int index2 = Dust.NewDust(projectile.position, 0, 0, 229, 0.0f, 0.0f, 100, Color.AliceBlue, 1f);
+                int index2 = Dust.NewDust(projectile.position, 0, 0, 236, 0.0f, 0.0f, 100, color, 1f);
                 var dust1 = Main.dust[index2];
                 dust1.velocity = Vector2.Multiply(dust1.velocity, 1.6f);
                 var dust2 = Main.dust[index2];

@@ -34,10 +34,7 @@ namespace BagOfNonsense.Projectiles
                 owner.AddBuff(BuffID.RapidHealing, 150);
             }
 
-            if (heal < 1f)
-            {
-                heal = 1;
-            }
+            if (heal < 1f) heal = 1;
 
             if (chance < 0.02f)
             {
@@ -70,7 +67,7 @@ namespace BagOfNonsense.Projectiles
             dust = Dust.NewDustPerfect(projectile.Center, 188, Vector2.One, 0, color, 1f);
             dust.noGravity = true;
             projectile.rotation = projectile.velocity.ToRotation() + MathHelper.PiOver2;
-            float num132 = (float)Math.Sqrt((double)(projectile.velocity.X * projectile.velocity.X + projectile.velocity.Y * projectile.velocity.Y));
+            float num132 = (float)Math.Sqrt(projectile.velocity.X * projectile.velocity.X + projectile.velocity.Y * projectile.velocity.Y);
             float num133 = projectile.localAI[0];
             if (num133 == 0f)
             {
@@ -87,12 +84,12 @@ namespace BagOfNonsense.Projectiles
             {
                 for (int num138 = 0; num138 < 200; num138++)
                 {
-                    if (Main.npc[num138].CanBeChasedBy(this, false) && (projectile.ai[1] == 0f || projectile.ai[1] == (float)(num138 + 1)))
+                    if (Main.npc[num138].CanBeChasedBy(this, false) && (projectile.ai[1] == 0f || projectile.ai[1] == num138 + 1))
                     {
-                        float num139 = Main.npc[num138].position.X + (float)(Main.npc[num138].width / 2);
-                        float num140 = Main.npc[num138].position.Y + (float)(Main.npc[num138].height / 2);
-                        float num141 = Math.Abs(projectile.position.X + (float)(projectile.width / 2) - num139) + Math.Abs(projectile.position.Y + (float)(projectile.height / 2) - num140);
-                        if (num141 < num136 && Collision.CanHit(new Vector2(projectile.position.X + (float)(projectile.width / 2), projectile.position.Y + (float)(projectile.height / 2)), 1, 1, Main.npc[num138].position, Main.npc[num138].width, Main.npc[num138].height))
+                        float num139 = Main.npc[num138].position.X + Main.npc[num138].width / 2;
+                        float num140 = Main.npc[num138].position.Y + Main.npc[num138].height / 2;
+                        float num141 = Math.Abs(projectile.position.X + projectile.width / 2 - num139) + Math.Abs(projectile.position.Y + projectile.height / 2 - num140);
+                        if (num141 < num136 && Collision.CanHit(new Vector2(projectile.position.X + projectile.width / 2, projectile.position.Y + projectile.height / 2), 1, 1, Main.npc[num138].position, Main.npc[num138].width, Main.npc[num138].height))
                         {
                             num136 = num141;
                             num134 = num139;
@@ -103,10 +100,7 @@ namespace BagOfNonsense.Projectiles
                     }
                 }
 
-                if (flag3)
-                {
-                    projectile.ai[1] = (float)(num137 + 1);
-                }
+                if (flag3) projectile.ai[1] = num137 + 1;
 
                 flag3 = false;
             }
@@ -116,13 +110,13 @@ namespace BagOfNonsense.Projectiles
                 int num142 = (int)(projectile.ai[1] - 1f);
                 if (Main.npc[num142].active && Main.npc[num142].CanBeChasedBy(this, true) && !Main.npc[num142].dontTakeDamage)
                 {
-                    float num143 = Main.npc[num142].position.X + (float)(Main.npc[num142].width / 2);
-                    float num144 = Main.npc[num142].position.Y + (float)(Main.npc[num142].height / 2);
-                    if (Math.Abs(projectile.position.X + (float)(projectile.width / 2) - num143) + Math.Abs(projectile.position.Y + (float)(projectile.height / 2) - num144) < 1000f)
+                    float num143 = Main.npc[num142].position.X + Main.npc[num142].width / 2;
+                    float num144 = Main.npc[num142].position.Y + Main.npc[num142].height / 2;
+                    if (Math.Abs(projectile.position.X + projectile.width / 2 - num143) + Math.Abs(projectile.position.Y + projectile.height / 2 - num144) < 1000f)
                     {
                         flag3 = true;
-                        num134 = Main.npc[num142].position.X + (float)(Main.npc[num142].width / 2);
-                        num135 = Main.npc[num142].position.Y + (float)(Main.npc[num142].height / 2);
+                        num134 = Main.npc[num142].position.X + Main.npc[num142].width / 2;
+                        num135 = Main.npc[num142].position.Y + Main.npc[num142].height / 2;
                     }
                 }
                 else
@@ -131,24 +125,21 @@ namespace BagOfNonsense.Projectiles
                 }
             }
 
-            if (!projectile.friendly)
-            {
-                flag3 = false;
-            }
+            if (!projectile.friendly) flag3 = false;
 
             if (flag3)
             {
                 float num145 = num133;
-                Vector2 vector10 = new Vector2(projectile.position.X + (float)projectile.width * 0.5f, projectile.position.Y + (float)projectile.height * 0.5f);
+                Vector2 vector10 = new Vector2(projectile.position.X + projectile.width * 0.5f, projectile.position.Y + projectile.height * 0.5f);
                 float num146 = num134 - vector10.X;
                 float num147 = num135 - vector10.Y;
-                float num148 = (float)Math.Sqrt((double)(num146 * num146 + num147 * num147));
+                float num148 = (float)Math.Sqrt(num146 * num146 + num147 * num147);
                 num148 = num145 / num148;
                 num146 *= num148;
                 num147 *= num148;
                 int num149 = 8;
-                projectile.velocity.X = (projectile.velocity.X * (float)(num149 - 1) + num146) / (float)num149;
-                projectile.velocity.Y = (projectile.velocity.Y * (float)(num149 - 1) + num147) / (float)num149;
+                projectile.velocity.X = (projectile.velocity.X * (num149 - 1) + num146) / num149;
+                projectile.velocity.Y = (projectile.velocity.Y * (num149 - 1) + num147) / num149;
             }
         }
 
@@ -160,10 +151,11 @@ namespace BagOfNonsense.Projectiles
 
         public override void Kill(int timeLeft)
         {
+            Color color = new Color(70, 218, 255, 255);
             int num1 = Main.rand.Next(5, 10);
             for (int index1 = 0; index1 < num1; ++index1)
             {
-                int index2 = Dust.NewDust(projectile.position, 0, 0, 229, 0.0f, 0.0f, 100, Color.AliceBlue, 1f);
+                int index2 = Dust.NewDust(projectile.position, 0, 0, 236, 0.0f, 0.0f, 100, color, 1f);
                 var dust1 = Main.dust[index2];
                 dust1.velocity = Vector2.Multiply(dust1.velocity, 1.6f);
                 var dust2 = Main.dust[index2];

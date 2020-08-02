@@ -23,10 +23,9 @@ namespace BagOfNonsense.Projectiles
             projectile.ignoreWater = true;
             projectile.ranged = true;
             projectile.damage = 1;
-            projectile.light = 0.55f;
+            projectile.light = 0.6f;
+            projectile.extraUpdates = 2;
         }
-
-        public override Color? GetAlpha(Color lightColor) => new Color(lightColor.R, lightColor.G, lightColor.B, 255);
 
         public override void AI()
         {
@@ -34,85 +33,80 @@ namespace BagOfNonsense.Projectiles
             dust = Dust.NewDustPerfect(projectile.Center, 6, Vector2.One, 0, default, 1f);
             dust.noGravity = true;
             projectile.rotation = projectile.velocity.ToRotation() + MathHelper.PiOver2;
-            float num132 = (float)Math.Sqrt((double)(projectile.velocity.X * projectile.velocity.X + projectile.velocity.Y * projectile.velocity.Y));
-            float num133 = projectile.localAI[0];
-            if (num133 == 0f)
+            float num197 = (float)Math.Sqrt((double)(projectile.velocity.X * projectile.velocity.X + projectile.velocity.Y * projectile.velocity.Y));
+            float num198 = projectile.localAI[0];
+            if (num198 == 0f)
             {
-                projectile.localAI[0] = num132;
-                num133 = num132;
+                projectile.localAI[0] = num197;
+                num198 = num197;
             }
 
-            float num134 = projectile.position.X;
-            float num135 = projectile.position.Y;
-            float num136 = 300f;
-            bool flag3 = false;
-            int num137 = 0;
-            if (projectile.ai[1] == 0f)
+            if (projectile.alpha > 0) projectile.alpha -= 25;
+            if (projectile.alpha < 0) projectile.alpha = 0;
+            float num199 = projectile.position.X;
+            float num200 = projectile.position.Y;
+            float num201 = 800f;
+            bool flag5 = false;
+            int num202 = 0;
+            projectile.ai[0] += 1f;
+            if (projectile.ai[0] > 20f)
             {
-                for (int num138 = 0; num138 < 200; num138++)
+                projectile.ai[0] -= 1f;
+                if (projectile.ai[1] == 0f)
                 {
-                    if (Main.npc[num138].CanBeChasedBy(this, false) && (projectile.ai[1] == 0f || projectile.ai[1] == (float)(num138 + 1)))
+                    for (int num203 = 0; num203 < 200; num203++)
                     {
-                        float num139 = Main.npc[num138].position.X + (float)(Main.npc[num138].width / 2);
-                        float num140 = Main.npc[num138].position.Y + (float)(Main.npc[num138].height / 2);
-                        float num141 = Math.Abs(projectile.position.X + (float)(projectile.width / 2) - num139) + Math.Abs(projectile.position.Y + (float)(projectile.height / 2) - num140);
-                        if (num141 < num136 && Collision.CanHit(new Vector2(projectile.position.X + (float)(projectile.width / 2), projectile.position.Y + (float)(projectile.height / 2)), 1, 1, Main.npc[num138].position, Main.npc[num138].width, Main.npc[num138].height))
+                        if (Main.npc[num203].CanBeChasedBy(projectile, false) && (projectile.ai[1] == 0f || projectile.ai[1] == (float)(num203 + 1)))
                         {
-                            num136 = num141;
-                            num134 = num139;
-                            num135 = num140;
-                            flag3 = true;
-                            num137 = num138;
+                            float num204 = Main.npc[num203].position.X + (float)(Main.npc[num203].width / 2);
+                            float num205 = Main.npc[num203].position.Y + (float)(Main.npc[num203].height / 2);
+                            float num206 = Math.Abs(projectile.position.X + (float)(projectile.width / 2) - num204) + Math.Abs(projectile.position.Y + (float)(projectile.height / 2) - num205);
+                            if (num206 < num201 && Collision.CanHit(new Vector2(projectile.position.X + (float)(projectile.width / 2), projectile.position.Y + (float)(projectile.height / 2)), 1, 1, Main.npc[num203].position, Main.npc[num203].width, Main.npc[num203].height))
+                            {
+                                num201 = num206;
+                                num199 = num204;
+                                num200 = num205;
+                                flag5 = true;
+                                num202 = num203;
+                            }
+                        }
+                    }
+
+                    if (flag5) projectile.ai[1] = (float)(num202 + 1);
+                    flag5 = false;
+                }
+
+                if (projectile.ai[1] != 0f)
+                {
+                    int num207 = (int)(projectile.ai[1] - 1f);
+                    if (Main.npc[num207].active && Main.npc[num207].CanBeChasedBy(projectile, true))
+                    {
+                        float num208 = Main.npc[num207].position.X + (float)(Main.npc[num207].width / 2);
+                        float num209 = Main.npc[num207].position.Y + (float)(Main.npc[num207].height / 2);
+                        if (Math.Abs(projectile.position.X + (float)(projectile.width / 2) - num208) + Math.Abs(projectile.position.Y + (float)(projectile.height / 2) - num209) < 1000f)
+                        {
+                            flag5 = true;
+                            num199 = Main.npc[num207].position.X + (float)(Main.npc[num207].width / 2);
+                            num200 = Main.npc[num207].position.Y + (float)(Main.npc[num207].height / 2);
                         }
                     }
                 }
 
-                if (flag3)
+                if (!projectile.friendly) flag5 = false;
+                if (flag5)
                 {
-                    projectile.ai[1] = (float)(num137 + 1);
+                    float arg_9B40_0 = num198;
+                    Vector2 vector22 = new Vector2(projectile.position.X + (float)projectile.width * 0.5f, projectile.position.Y + (float)projectile.height * 0.5f);
+                    float num210 = num199 - vector22.X;
+                    float num211 = num200 - vector22.Y;
+                    float num212 = (float)Math.Sqrt((double)(num210 * num210 + num211 * num211));
+                    num212 = arg_9B40_0 / num212;
+                    num210 *= num212;
+                    num211 *= num212;
+                    int num213 = 8;
+                    projectile.velocity.X = (projectile.velocity.X * (float)(num213 - 1) + num210) / (float)num213;
+                    projectile.velocity.Y = (projectile.velocity.Y * (float)(num213 - 1) + num211) / (float)num213;
                 }
-
-                flag3 = false;
-            }
-
-            if (projectile.ai[1] > 0f)
-            {
-                int num142 = (int)(projectile.ai[1] - 1f);
-                if (Main.npc[num142].active && Main.npc[num142].CanBeChasedBy(this, true) && !Main.npc[num142].dontTakeDamage)
-                {
-                    float num143 = Main.npc[num142].position.X + (float)(Main.npc[num142].width / 2);
-                    float num144 = Main.npc[num142].position.Y + (float)(Main.npc[num142].height / 2);
-                    if (Math.Abs(projectile.position.X + (float)(projectile.width / 2) - num143) + Math.Abs(projectile.position.Y + (float)(projectile.height / 2) - num144) < 1000f)
-                    {
-                        flag3 = true;
-                        num134 = Main.npc[num142].position.X + (float)(Main.npc[num142].width / 2);
-                        num135 = Main.npc[num142].position.Y + (float)(Main.npc[num142].height / 2);
-                    }
-                }
-                else
-                {
-                    projectile.ai[1] = 0f;
-                }
-            }
-
-            if (!projectile.friendly)
-            {
-                flag3 = false;
-            }
-
-            if (flag3)
-            {
-                float num145 = num133;
-                Vector2 vector10 = new Vector2(projectile.position.X + (float)projectile.width * 0.5f, projectile.position.Y + (float)projectile.height * 0.5f);
-                float num146 = num134 - vector10.X;
-                float num147 = num135 - vector10.Y;
-                float num148 = (float)Math.Sqrt((double)(num146 * num146 + num147 * num147));
-                num148 = num145 / num148;
-                num146 *= num148;
-                num147 *= num148;
-                int num149 = 8;
-                projectile.velocity.X = (projectile.velocity.X * (float)(num149 - 1) + num146) / (float)num149;
-                projectile.velocity.Y = (projectile.velocity.Y * (float)(num149 - 1) + num147) / (float)num149;
             }
         }
 
