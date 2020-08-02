@@ -31,10 +31,7 @@ namespace BagOfNonsense.Items.Weapons
 
         public override bool ConsumeAmmo(Player player)
         {
-            if (Main.rand.NextFloat(3) != 1)
-            {
-                return false;
-            }
+            if (Main.rand.NextFloat(3) != 1) return false;
 
             return true;
         }
@@ -50,7 +47,7 @@ namespace BagOfNonsense.Items.Weapons
                 if (float.IsNaN(projectilev.X) || float.IsNaN(projectilev.Y))
                     projectilev = Vector2.Negate(Vector2.UnitY);
                 Vector2 PlCeRrandomized = Vector2.Add(playercenter, Utils.RandomVector2(Main.rand, -15f, 15f));
-                int shooty = Projectile.NewProjectile(PlCeRrandomized.X, PlCeRrandomized.Y, projectilev.X, projectilev.Y, type, damage, knockBack, player.whoAmI, (float)(5 * Main.rand.Next(0, 20)), 0.0f);
+                int shooty = Projectile.NewProjectile(PlCeRrandomized.X, PlCeRrandomized.Y, projectilev.X, projectilev.Y, type, damage, knockBack, player.whoAmI, 5 * Main.rand.Next(0, 20), 0.0f);
                 Main.projectile[shooty].noDropItem = true;
             }
 

@@ -15,7 +15,7 @@ namespace BagOfNonsense.Items.Weapons
 
         public override void SetDefaults()
         {
-            item.shootSpeed = 4.3f;
+            item.shootSpeed = 8.6f;
             item.shoot = mod.ProjectileType("DoomArrow");
             item.damage = 16;
             item.width = 14;

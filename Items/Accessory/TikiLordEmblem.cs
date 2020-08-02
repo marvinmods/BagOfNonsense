@@ -14,11 +14,11 @@ namespace BagOfNonsense
         {
             if ((proj.minion || ProjectileID.Sets.MinionShot[proj.type]) && DebuffOnHit && !proj.noEnchantments)
             {
-                target.AddBuff(BuffID.ShadowFlame, 60 * Main.rand.Next(5, 15));
-                target.AddBuff(BuffID.BetsysCurse, 60 * Main.rand.Next(8, 24));
-                target.AddBuff(BuffID.Oiled, 60 * Main.rand.Next(10, 60));
-                target.AddBuff(BuffID.CursedInferno, 60 * Main.rand.Next(10, 60));
-                target.AddBuff(BuffID.Frostburn, 60 * Main.rand.Next(30, 60));
+                target.AddBuff(BuffID.ShadowFlame, 60 + Main.rand.Next(50, 150));
+                target.AddBuff(BuffID.BetsysCurse, 60 + Main.rand.Next(80, 240));
+                target.AddBuff(BuffID.Oiled, 60 + Main.rand.Next(100, 600));
+                target.AddBuff(BuffID.CursedInferno, 60 + Main.rand.Next(100, 600));
+                target.AddBuff(BuffID.Frostburn, 60 + Main.rand.Next(300, 600));
             }
         }
     }

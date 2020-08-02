@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ZoaklenMod.Items.Weapons
+namespace BagOfNonsense.Items.Weapons
 {
     public class MarrowUp : ModItem
     {
@@ -17,7 +17,7 @@ namespace ZoaklenMod.Items.Weapons
         public override void SetDefaults()
         {
             item.CloneDefaults(ItemID.Marrow);
-            item.damage = 28;
+            item.damage = 38;
             item.knockBack = 4f;
             item.useTime = 8;
             item.useAnimation = 24;
@@ -30,55 +30,29 @@ namespace ZoaklenMod.Items.Weapons
         public override bool ConsumeAmmo(Player player)
         {
             int consume = Main.rand.Next(2);
-            if (consume == 1)
-            {
-                return false;
-            }
+            if (consume == 1) return false;
 
             return true;
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            float speedX2 = Main.mouseX + Main.screenPosition.X - position.X;
-            float speedY2 = Main.mouseY + Main.screenPosition.Y - position.Y;
-            int nerfdamage = (int)(damage * 0.66);
-            int extradamage = (int)(damage * 1.33);
-            float nerfknockback = (float)(knockBack * 0.4);
-            speedX2 += Main.rand.Next(-4, 6);
-            speedY2 += Main.rand.Next(-4, 6);
-            speedX += Main.rand.Next(-4, 5);
-            speedY += Main.rand.Next(-4, 5);
-            float chance = Main.rand.NextFloat(0.1f, 1f);
+            int number = Main.rand.Next(6);
+            float radians;
+            if (number == 6) radians = 6; else radians = 4;
+            if (number == 0) number = 1;
             {
-                if (chance > 0.95f)
+                for (int i = 0; i < number; i++)
                 {
-                    for (int i = 0; i < 8; i++)
-                    {
-                        Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(13));
-                        Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, ProjectileID.BoneArrow, nerfdamage, nerfknockback, player.whoAmI);
-                    }
-                }
-                else if (chance < 0.95f && chance > 0.45f)
-                {
-                    for (int i = 0; i < 3; i++)
-                    {
-                        Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(13));
-                        Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, ProjectileID.BoneArrow, nerfdamage, nerfknockback, player.whoAmI);
-                    }
-                }
-
-                for (int i = 0; i < 2; i++)
-                {
-                    Vector2 perturbedSpeed = new Vector2(speedX2, speedY2).RotatedByRandom(MathHelper.ToRadians(4));
-                    Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, ProjectileID.BoneArrow, extradamage, knockBack, player.whoAmI);
+                    Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(radians));
+                    Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, ProjectileID.BoneArrow, damage, knockBack, player.whoAmI);
                 }
             }
 
             return false;
         }
 
-        public override Vector2? HoldoutOffset() => new Vector2(x: 0, y: 5);
+        public override Vector2? HoldoutOffset() => new Vector2(x: 3, y: 0);
 
         public override void AddRecipes()
         {

@@ -2,6 +2,7 @@
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static BagOfNonsense.CoolStuff.CoolStuff;
 
 namespace BagOfNonsense.Items.Accessory
 {
@@ -14,7 +15,7 @@ namespace BagOfNonsense.Items.Accessory
                 "20% increased arrow damage and speed, 3% chance to spawn ghostly arrows that deal quad damage\n" +
                 "Turns the holder into a werewolf at night and a merfolk when entering water\n" +
                 "Mild increase to damage, melee speed, critical strike chance,\n" +
-                "life regeneration, defense, mining speed, and minion knockback");
+                "life, life regeneration, defense, mining speed, and minion knockback");
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(9, 3));
         }
 
